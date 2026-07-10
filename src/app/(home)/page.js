@@ -155,7 +155,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 px-4 py-20 md:py-28">
+      <section className="relative overflow-hidden bg-linear-to-br from-blue-600 via-blue-700 to-indigo-800 px-4 py-20 md:py-28">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 h-64 w-64 rounded-full bg-white"></div>
           <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-white"></div>
@@ -211,7 +211,7 @@ export default function Home() {
               <Link
                 key={tool.title}
                 href={tool.href}
-                className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${tool.color} p-6 transition-all hover:scale-[1.02] hover:shadow-xl`}
+                className={`group relative overflow-hidden rounded-2xl bg-linear-to-br ${tool.color} p-6 transition-all hover:scale-[1.02] hover:shadow-xl`}
               >
                 {tool.tag && (
                   <span className="absolute right-4 top-4 rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white">
@@ -291,7 +291,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-indigo-700 px-4 py-16 text-center text-white md:py-24">
+      <section className="bg-linear-to-br from-blue-600 to-indigo-700 px-4 py-16 text-center text-white md:py-24">
         <div className="container mx-auto max-w-3xl">
           <h2 className="mb-4 text-3xl font-bold md:text-4xl">
             Start Converting for Free

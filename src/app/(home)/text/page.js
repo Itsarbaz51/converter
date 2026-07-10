@@ -1,18 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import UploadArea from '../../components/upload/UploadArea';
-import ConversionOptions from '../../components/converter/ConversionOptions';
-import FileList from '../../components/common/FileList.jsx';
+import UploadArea from '../../../components/upload/UploadArea';
+import ConversionOptions from '../../../components/converter/ConversionOptions';
+import FileList from '../../../components/common/FileList';
 
-export default function ExcelPage() {
+export default function TextPage() {
   const [files, setFiles] = useState([]);
-  const [conversionType, setConversionType] = useState('excel-to-pdf');
+  const [conversionType, setConversionType] = useState('text-to-pdf');
 
   const conversionOptions = [
-    { value: 'excel-to-pdf', label: 'Excel to PDF' },
-    { value: 'excel-to-csv', label: 'Excel to CSV' },
-    { value: 'excel-to-text', label: 'Excel to Text' },
+    { value: 'text-to-pdf', label: 'Text to PDF' },
+    { value: 'text-to-word', label: 'Text to Word' },
+    { value: 'text-to-excel', label: 'Text to Excel' },
   ];
 
   const handleFileUpload = (newFiles) => {
@@ -24,14 +24,14 @@ export default function ExcelPage() {
   };
 
   const handleConvert = () => {
-    console.log('Converting Excel files:', files, 'to', conversionType);
+    console.log('Converting Text files:', files, 'to', conversionType);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Excel Converter</h1>
-        <p className="text-gray-600 mb-8">Convert Excel spreadsheets to PDF and more</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Text Converter</h1>
+        <p className="text-gray-600 mb-8">Convert text files to PDF and more</p>
 
         <div className="bg-white rounded-xl shadow-sm p-6">
           <ConversionOptions
@@ -40,7 +40,7 @@ export default function ExcelPage() {
             onChange={setConversionType}
           />
 
-          <UploadArea onFileUpload={handleFileUpload} accept=".xls,.xlsx" />
+          <UploadArea onFileUpload={handleFileUpload} accept=".txt" />
 
           {files.length > 0 && (
             <>

@@ -1,19 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import UploadArea from '../../components/upload/UploadArea';
-import ConversionOptions from '../../components/converter/ConversionOptions';
-import FileList from '../../components/common/FileList';
+import UploadArea from '../../../components/upload/UploadArea';
+import ConversionOptions from '../../../components/converter/ConversionOptions';
+import FileList from '../../../components/common/FileList.jsx';
 
-export default function ImagePage() {
+export default function ExcelPage() {
   const [files, setFiles] = useState([]);
-  const [conversionType, setConversionType] = useState('image-to-pdf');
+  const [conversionType, setConversionType] = useState('excel-to-pdf');
 
   const conversionOptions = [
-    { value: 'image-to-pdf', label: 'Image to PDF' },
-    { value: 'jpg-to-png', label: 'JPG to PNG' },
-    { value: 'png-to-jpg', label: 'PNG to JPG' },
-    { value: 'image-to-text', label: 'Image to Text (OCR)' },
+    { value: 'excel-to-pdf', label: 'Excel to PDF' },
+    { value: 'excel-to-csv', label: 'Excel to CSV' },
+    { value: 'excel-to-text', label: 'Excel to Text' },
   ];
 
   const handleFileUpload = (newFiles) => {
@@ -25,14 +24,14 @@ export default function ImagePage() {
   };
 
   const handleConvert = () => {
-    console.log('Converting Image files:', files, 'to', conversionType);
+    console.log('Converting Excel files:', files, 'to', conversionType);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Image Converter</h1>
-        <p className="text-gray-600 mb-8">Convert images to PDF and other formats</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Excel Converter</h1>
+        <p className="text-gray-600 mb-8">Convert Excel spreadsheets to PDF and more</p>
 
         <div className="bg-white rounded-xl shadow-sm p-6">
           <ConversionOptions
@@ -41,7 +40,7 @@ export default function ImagePage() {
             onChange={setConversionType}
           />
 
-          <UploadArea onFileUpload={handleFileUpload} accept="image/*" />
+          <UploadArea onFileUpload={handleFileUpload} accept=".xls,.xlsx" />
 
           {files.length > 0 && (
             <>
