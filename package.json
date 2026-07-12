@@ -7,9 +7,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node src/seed/seed.js"
   },
   "dependencies": {
+    "@next/env": "^16.2.10",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.7.4",
     "next": "16.2.10",
     "react": "19.2.4",
