@@ -1,7 +1,7 @@
 import { User } from "@/models/user.model";
 import { ApiError } from "@/utils/ApiError";
 
-export const loginService = async ({ email, password }) => {
+const loginService = async ({ email, password }) => {
 
     const user = await User.findOne({ email });
 
@@ -40,3 +40,31 @@ export const loginService = async ({ email, password }) => {
         refreshToken,
     };
 };
+
+const logoutService = async (user) => {
+    user.refreshToken = undefined;
+
+    await user.save({
+        validateBeforeSave: false,
+    });
+
+    return true;
+};
+
+const currentUserService = async (user) => {
+    console.log(user.id );
+
+    const currentUser = await User.findOne({ _id: user?.id })
+    console.log(currentUser);
+    
+    if (!currentUser) {
+        throw new ApiError(404, "current user not found")
+    }
+    return currentUser
+};
+
+export {
+    loginService,
+    logoutService,
+    currentUserService
+}
