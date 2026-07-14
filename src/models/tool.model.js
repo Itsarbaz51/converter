@@ -2,35 +2,100 @@ import mongoose from "mongoose";
 
 const toolSchema = new mongoose.Schema(
     {
-
-        name: String,
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
 
         slug: {
             type: String,
-            unique: true
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
         },
 
-        category: String,
+        category: {
+            type: String,
+            // enum: [
+            //     "image",
+            //     "pdf",
+            //     "word",
+            //     "excel",
+            //     "ppt",
+            //     "video",
+            //     "audio",
+            //     "archive",
+            //     "utility",
+            // ],
+            required: true,
+        },
 
-        description: String,
+        description: {
+            type: String,
+            default: "",
+        },
 
-        inputFormats: [String],
+        inputFormats: {
+            type: [String],
+            required: true,
+            default: [],
+        },
 
-        outputFormats: [String],
+        outputFormats: {
+            type: [String],
+            required: true,
+            default: [],
+        },
 
-        icon: String,
+        icon: {
+            type: String,
+            default: "",
+        },
+
+        color: {
+            type: String,
+            default: "#2563eb",
+        },
+
+        engine: {
+            type: String,
+            // enum: [
+            //     "sharp",
+            //     "libreoffice",
+            //     "ffmpeg",
+            //     "imagemagick",
+            //     "ocr",
+            //     "custom",
+            // ],
+            required: true,
+        },
+
+        priority: {
+            type: Number,
+            default: 0,
+        },
+
+        isPopular: {
+            type: Boolean,
+            default: false,
+        },
 
         active: {
             type: Boolean,
-            default: true
-        }
-
+            default: true,
+        },
     },
     {
-        timestamps: true
-    });
+        timestamps: true,
+    }
+);
 
 toolSchema.index({ slug: 1 });
+toolSchema.index({ category: 1 });
+toolSchema.index({ active: 1 });
 
-
-export const Tool = mongoose.model("Tool", toolSchema);
+export const Tool =
+    mongoose.models.Tool ||
+    mongoose.model("Tool", toolSchema);

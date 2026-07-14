@@ -1,65 +1,84 @@
 import mongoose from "mongoose";
 
-const fileSchema = new mongoose.Schema(
-    {
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            default: null
-        },
+const fileSchema = new mongoose.Schema({
 
-        originalName: String,
-
-        filename: String,
-
-        extension: String,
-
-        mimeType: String,
-
-        size: Number,
-
-        category: {
-            type: String,
-            enum: [
-                "image",
-                "pdf",
-                "word",
-                "excel",
-                "ppt",
-                "text",
-                "other"
-            ]
-        },
-
-        storageProvider: {
-            type: String,
-            enum: ["r2", "imagekit"]
-        },
-
-        storageKey: String,
-
-        storageUrl: String,
-
-        checksum: String,
-
-        downloadCount: {
-            type: Number,
-            default: 0
-        },
-
-        expiresAt: Date,
-
-        isDeleted: {
-            type: Boolean,
-            default: false
-        }
-
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: null
     },
-    {
-        timestamps: true
-    });
 
-fileSchema.index({ checksum: 1 });
-fileSchema.index({ expiresAt: 1 });
+    originalName: {
+        type: String,
+        required: true
+    },
 
-export const File = mongoose.model("File", fileSchema);
+    filename: {
+        type: String,
+        required: true
+    },
+
+    extension: {
+        type: String,
+        required: true
+    },
+
+    mimeType: {
+        type: String,
+        required: true
+    },
+
+    size: {
+        type: Number,
+        required: true
+    },
+
+    category: {
+        type: String,
+        required: true
+    },
+
+    storageProvider: {
+        type: String,
+        required: true
+    },
+
+    storageKey: String,
+
+    storageUrl: String,
+
+    checksum: {
+        type: String,
+        index: true
+    },
+
+    width: Number,
+
+    height: Number,
+
+    pages: Number,
+
+    duration: Number,
+
+    downloadCount: {
+        type: Number,
+        default: 0
+    },
+
+    expiresAt: {
+        type: Date,
+        index: true
+    },
+
+    isDeleted: {
+        type: Boolean,
+        default: false
+    }
+
+}, {
+    timestamps: true
+});
+
+export const File =
+    mongoose.models.File ||
+    mongoose.model("File", fileSchema);
