@@ -2,94 +2,73 @@ import imagekit from "@/lib/imagekit";
 import crypto from "node:crypto";
 
 class ImageKitService {
-
-    async uploadFile(file, folder = "/converter") {
-        try {
-
-            if (!file) {
-                throw new Error("File is required");
-            }
-
-            const checksum = crypto
-                .createHash("sha256")
-                .update(file.buffer)
-                .digest("hex");
-
-            const response = await imagekit.upload({
-                file: file.buffer,
-                fileName: file.originalname,
-                folder,
-                useUniqueFileName: true,
-            });
-
-            return {
-                success: true,
-                data: {
-                    fileId: response.fileId,
-                    name: response.name,
-                    url: response.url,
-                    filePath: response.filePath,
-                    size: response.size,
-                    mimeType: response.fileType,
-                    checksum,
-                },
-            };
-
-        } catch (error) {
-
-            throw new Error(error.message);
-        }
+  async uploadFile({ file, fileName, folder = "/converter" }) {
+    if (!file) {
+      throw new Error("File is required");
     }
 
-    async deleteFile(fileId) {
-        try {
+    const checksum = crypto
+      .createHash("sha256")
+      .update(file) // Buffer
+      .digest("hex");
 
-            await imagekit.deleteFile(fileId);
+    const response = await imagekit.upload({
+      file,
+      fileName,
+      folder,
+      useUniqueFileName: true,
+    });
 
-            return {
-                success: true,
-                message: "File deleted successfully",
-            };
+    return {
+      fileId: response.fileId,
+      name: response.name,
+      url: response.url,
+      filePath: response.filePath,
+      size: response.size,
+      checksum,
+    };
+  }
 
-        } catch (error) {
+  async deleteFile(fileId) {
+    try {
+      await imagekit.deleteFile(fileId);
 
-            throw new Error(error.message);
-        }
+      return {
+        success: true,
+        message: "File deleted successfully",
+      };
+    } catch (error) {
+      throw new Error(error.message);
     }
+  }
 
-    async getFile(fileId) {
-        try {
+  async getFile(fileId) {
+    try {
+      const file = await imagekit.getFileDetails(fileId);
 
-            const file = await imagekit.getFileDetails(fileId);
-
-            return {
-                success: true,
-                data: file,
-            };
-
-        } catch (error) {
-
-            throw new Error(error.message);
-        }
+      return {
+        success: true,
+        data: file,
+      };
+    } catch (error) {
+      throw new Error(error.message);
     }
+  }
 
-    async listFiles(path = "/converter") {
-        try {
+  async listFiles(path = "/converter") {
+    try {
+      const files = await imagekit.listFiles({
+        path,
+      });
 
-            const files = await imagekit.listFiles({
-                path,
-            });
-
-            return {
-                success: true,
-                data: files,
-            };
-
-        } catch (error) {
-
-            throw new Error(error.message);
-        }
+      return {
+        success: true,
+        data: files,
+      };
+    } catch (error) {
+      throw new Error(error.message);
     }
+  }
 }
 
 export default new ImageKitService();

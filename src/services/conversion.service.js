@@ -1,219 +1,212 @@
-import { Tool } from "@/models/tool.model";
-import { File } from "@/models/file.model";
-import { Conversion } from "@/models/conversion.model";
+import { Tool } from "../models/tool.model";
+import { File } from "../models/files.model";
+import { Conversion } from "../models/conversions.model";
 
-import EngineFactory from "@/engines/engine.factory";
-
-import ImageKitService from "@/services/imagekit.service";
-
-import { ApiError } from "@/utils/ApiError";
+import EngineFactory from "../engines/engine.factory";
+import ImageKitService from "../utils/imagekit";
+import { ApiError } from "../utils/ApiError";
 
 export const convertService = async ({ slug, file, user }) => {
+  // 1. Find Tool
+  const tool = await Tool.findOne({ slug });
 
-    // 1. Find Tool
+  if (!tool) {
+    throw new ApiError(404, "Tool not found");
+  }
 
-    const tool = await Tool.findOne({
-        slug,
-        active: true
-    });
+  if (!tool.active) {
+    throw new ApiError(403, "Tool is inactive");
+  }
 
-    if (!tool) {
-        throw new ApiError(404, "Tool not found");
-    }
+  //-----------------------------------------
+  // 2. Validate Input Format
+  //-----------------------------------------
+  const extension = file.name.split(".").pop().toLowerCase();
 
-    //-----------------------------------------
-    // 2. Validate Input Format
-    //-----------------------------------------
-
-    const extension = file.name
-        .split(".")
-        .pop()
-        .toLowerCase();
-
-    if (!tool.inputFormats.includes(extension)) {
-        throw new ApiError(
-            400,
-            `Only ${tool.inputFormats.join(", ")} files are allowed`
-        );
-    }
-
-    //-----------------------------------------
-    // 3. Buffer
-    //-----------------------------------------
-
-    const buffer = Buffer.from(
-        await file.arrayBuffer()
+  if (!tool.inputFormats.includes(extension)) {
+    throw new ApiError(
+      400,
+      `Only ${tool.inputFormats.join(", ")} files are allowed`,
     );
+  }
 
-    //-----------------------------------------
-    // 4. Upload Original
-    //-----------------------------------------
+  //-----------------------------------------
+  // 3. Buffer
+  //-----------------------------------------
 
-    const uploadedOriginal =
-        await ImageKitService.uploadFile({
-            file: buffer,
-            fileName: file.name,
-            folder: "/converter/original"
-        });
+  const buffer = Buffer.from(await file.arrayBuffer());
 
-    //-----------------------------------------
-    // 5. Save Original File
-    //-----------------------------------------
+  //-----------------------------------------
+  // 4. Upload Original
+  //-----------------------------------------
 
-    const originalFile =
-        await File.create({
+  const uploadedOriginal = await ImageKitService.uploadFile({
+    file: buffer,
+    fileName: file.name,
+    folder: "/converter/original",
+  });
 
-            userId: user?._id || null,
+  //-----------------------------------------
+  // 5. Save Original File
+  //-----------------------------------------
 
-            originalName: file.name,
+  const originalFile = await File.create({
+    userId: user?._id || null,
 
-            filename: uploadedOriginal.name,
+    originalName: file.name,
 
-            extension,
+    filename: uploadedOriginal.name,
 
-            mimeType: file.type,
+    extension,
 
-            size: file.size,
+    mimeType: file.type,
 
-            category: tool.category,
+    size: file.size,
 
-            storageProvider: "imagekit",
+    category: tool.category,
 
-            storageKey: uploadedOriginal.filePath,
+    storageProvider: "imagekit",
 
-            storageUrl: uploadedOriginal.url,
+    storageKey: uploadedOriginal.filePath,
 
-            checksum: uploadedOriginal.checksum,
+    storageUrl: uploadedOriginal.url,
 
-            expiresAt: new Date(
-                Date.now() + 24 * 60 * 60 * 1000
-            )
+    checksum: uploadedOriginal.checksum,
 
-        });
+    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+  });
 
-    //-----------------------------------------
-    // 6. Create Conversion
-    //-----------------------------------------
+  //-----------------------------------------
+  // 6. Create Conversion
+  //-----------------------------------------
 
-    const conversion =
-        await Conversion.create({
+  const conversion = await Conversion.create({
+    userId: user?._id || null,
 
-            userId: user?._id || null,
+    inputFileId: originalFile._id,
 
-            inputFileId: originalFile._id,
+    toolId: tool._id,
 
-            toolId: tool._id,
+    inputFormat: extension,
 
-            inputFormat: extension,
+    outputFormat: tool.outputFormats[0],
 
-            outputFormat:
-                tool.outputFormats[0],
+    status: "processing",
 
-            status: "processing",
+    progress: 0,
+  });
 
-            progress: 0
+  //-----------------------------------------
+  // 7. Engine
+  //-----------------------------------------
 
-        });
+  const engine = EngineFactory.get(tool.engine);
 
-    //-----------------------------------------
-    // 7. Engine
-    //-----------------------------------------
+  const convertedBuffer = await engine.convert(buffer, tool.outputFormats[0]);
 
-    const engine =
-        EngineFactory.get(tool.engine);
+  //-----------------------------------------
+  // Remaining next...
+  //-----------------------------------------
 
-    const convertedBuffer =
-        await engine.convert(
-            buffer,
-            tool.outputFormats[0]
-        );
+  //-----------------------------------------
+  // 8. Upload Converted File
+  //-----------------------------------------
 
-    //-----------------------------------------
-    // Remaining next...
-    //-----------------------------------------
+  const outputExtension = tool.outputFormats[0];
 
-    //-----------------------------------------
-    // 8. Upload Converted File
-    //-----------------------------------------
+  const uploadedConverted = await ImageKitService.uploadFile({
+    file: convertedBuffer,
+    fileName: `${Date.now()}.${outputExtension}`,
+    folder: "/converter/converted",
+  });
 
-    const outputExtension = tool.outputFormats[0];
+  //-----------------------------------------
+  // 9. Save Output File
+  //-----------------------------------------
 
-    const uploadedConverted =
-        await ImageKitService.uploadFile({
-            file: convertedBuffer,
-            fileName: `${Date.now()}.${outputExtension}`,
-            folder: "/converter/converted"
-        });
+  const outputFile = await File.create({
+    userId: user?._id || null,
 
+    originalName: uploadedConverted.name,
 
-    //-----------------------------------------
-    // 9. Save Output File
-    //-----------------------------------------
+    filename: uploadedConverted.name,
 
-    const outputFile =
-        await File.create({
+    extension: outputExtension,
 
-            userId: user?._id || null,
+    mimeType: `image/${outputExtension}`,
 
-            originalName: uploadedConverted.name,
+    size: uploadedConverted.size,
 
-            filename: uploadedConverted.name,
+    category: tool.category,
 
-            extension: outputExtension,
+    storageProvider: "imagekit",
 
-            mimeType: `image/${outputExtension}`,
+    storageKey: uploadedConverted.filePath,
 
-            size: uploadedConverted.size,
+    storageUrl: uploadedConverted.url,
 
-            category: tool.category,
+    checksum: uploadedConverted.checksum,
 
-            storageProvider: "imagekit",
+    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+  });
 
-            storageKey: uploadedConverted.filePath,
+  //-----------------------------------------
+  // 10. Update Conversion
+  //-----------------------------------------
 
-            storageUrl: uploadedConverted.url,
+  conversion.outputFileId = outputFile._id;
 
-            checksum: uploadedConverted.checksum,
+  conversion.status = "completed";
 
-            expiresAt: new Date(
-                Date.now() + 24 * 60 * 60 * 1000
-            )
+  conversion.progress = 100;
 
-        });
+  conversion.completedAt = new Date();
 
+  conversion.processingTime = conversion.completedAt - conversion.createdAt;
 
-    //-----------------------------------------
-    // 10. Update Conversion
-    //-----------------------------------------
+  await conversion.save();
 
-    conversion.outputFileId = outputFile._id;
+  //-----------------------------------------
+  // 11. Return Response
+  //-----------------------------------------
 
-    conversion.status = "completed";
+  return {
+    conversionId: conversion._id,
+    originalFileId: originalFile._id,
+    outputFileId: outputFile._id,
+  };
+};
 
-    conversion.progress = 100;
+export const convertedDownloadService = async (conversionId) => {
+  const conversion = await Conversion.findById(conversionId);
 
-    conversion.completedAt = new Date();
+  if (!conversion) {
+    throw new ApiError(404, "Conversion not found");
+  }
 
-    conversion.processingTime =
-        conversion.completedAt - conversion.createdAt;
+  if (conversion.status !== "completed") {
+    throw new ApiError(400, "Conversion is not completed");
+  }
 
-    await conversion.save();
+  const file = await File.findById(conversion.outputFileId);
 
+  if (!file) {
+    throw new ApiError(404, "Output file not found");
+  }
 
-    //-----------------------------------------
-    // 11. Return Response
-    //-----------------------------------------
+  if (file.isDeleted) {
+    throw new ApiError(404, "File deleted");
+  }
 
-    return {
+  if (file.expiresAt && file.expiresAt < new Date()) {
+    throw new ApiError(410, "File expired");
+  }
 
-        conversionId: conversion._id,
+  file.downloadCount += 1;
 
-        originalFileId: originalFile._id,
+  await file.save({
+    validateBeforeSave: false,
+  });
 
-        outputFileId: outputFile._id,
-
-        downloadUrl: outputFile.storageUrl
-
-    };
-
+  return file.storageUrl;
 };
