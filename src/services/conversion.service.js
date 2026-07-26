@@ -7,9 +7,12 @@ import ImageKitService from "../utils/imagekit";
 import { ApiError } from "../utils/ApiError";
 
 export const convertService = async ({ slug, file, user }) => {
+  console.log("slug:", slug);
+  console.log("file:", file?.name);
   // 1. Find Tool
+  // const tool = await Tool.findOne({ slug });
   const tool = await Tool.findOne({ slug });
-
+  console.log("tool:", tool);
   if (!tool) {
     throw new ApiError(404, "Tool not found");
   }

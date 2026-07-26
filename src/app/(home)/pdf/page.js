@@ -26,42 +26,81 @@ export default function PDFPage() {
     setFiles(files.filter((_, i) => i !== index));
   };
 
-  const handleConvert = () => {
+  const handleConvert = async () => {
+
+    if (!files.length) return;
+
+    const formData = new FormData();
+
+    files.forEach((file) => {
+      formData.append("file", file);
+    });
+
+    formData.append("conversionType", conversionType)
+
+    try {
+      const response = await fetch(`/api/tools/${conversionType}/convert`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Conversion Failed");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+
+      a.download = conversionType === "pdf-to-word" ? "converted.docx" : "converted.zip";
+
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+
+    } catch (err) {
+      console.error(err);
+      alert("Conversion failed")
+
+
+    }
     // Conversion logic here
     console.log("Converting files:", files, "to", conversionType);
   };
 
   return (
     <>
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">PDF Converter</h1>
-        <p className="text-gray-600 mb-8">Convert PDF files to any format</p>
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">PDF Converter</h1>
+          <p className="text-gray-600 mb-8">Convert PDF files to any format</p>
 
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <ConversionOptions
-            options={conversionOptions}
-            value={conversionType}
-            onChange={setConversionType}
-          />
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <ConversionOptions
+              options={conversionOptions}
+              value={conversionType}
+              onChange={setConversionType}
+            />
 
-          <UploadArea onFileUpload={handleFileUpload} />
+            <UploadArea onFileUpload={handleFileUpload} />
 
-          {files.length > 0 && (
-            <>
-              <FileList files={files} onRemove={handleRemoveFile} />
+            {files.length > 0 && (
+              <>
+                <FileList files={files} onRemove={handleRemoveFile} />
 
-              <button
-                onClick={handleConvert}
-                className="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-              >
-                Convert Files
-              </button>
-            </>
-          )}
+                <button
+                  onClick={handleConvert}
+                  className="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors cursor-pointer"
+                >
+                  Convert Files
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

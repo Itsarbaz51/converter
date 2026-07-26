@@ -67,6 +67,14 @@ export default function Home() {
       color: "from-teal-50 to-teal-100",
       tag: "Popular",
     },
+    {
+      title: "API Documentaion",
+      description: "create api documentation",
+      icon: "👩‍💻",
+      href: "/developer",
+      color: "from-teal-50 to-teal-100",
+      tag: "Popular"
+    }
   ];
 
   const features = [
@@ -148,7 +156,7 @@ export default function Home() {
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
       { label: "Contact", href: "/contact" },
-      { label: "Developer API", href: "/developer" },
+      // { label: "Developer API", href: "/developer" },
     ],
   };
 
