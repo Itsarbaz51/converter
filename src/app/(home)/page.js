@@ -1,214 +1,170 @@
 import Link from "next/link";
+import { ArrowRight, CheckCircle, Zap, Shield, Globe, Lock, Clock, Sparkles, FileText, Image, Merge, Compress, Box } from "lucide-react";
 
 export default function Home() {
   const popularTools = [
     {
       title: "PDF to Word",
       description: "Convert PDFs to editable Word documents",
-      icon: "📄",
+      icon: <FileText className="w-6 h-6" />,
       href: "/pdf",
-      color: "from-blue-50 to-blue-100",
+      color: "from-blue-500/10 to-blue-600/10",
       tag: "Popular",
     },
-
     {
-      title: "Excel to Word",
-      description: "Convert Excel to Pdf, CSV and text",
-      icon: "📄",
+      title: "Excel to PDF",
+      description: "Convert Excel to PDF, CSV and text",
+      icon: <FileText className="w-6 h-6" />,
       href: "/excel",
-      color: "from-blue-50 to-blue-100",
+      color: "from-emerald-500/10 to-emerald-600/10",
       tag: "Popular",
     },
-
     {
       title: "Merge PDF",
       description: "Combine multiple PDFs into one unified document",
-      icon: "📑",
+      icon: <Merge className="w-6 h-6" />,
       href: "/merge",
-      color: "from-purple-50 to-purple-100",
+      color: "from-purple-500/10 to-purple-600/10",
       tag: "Popular",
     },
     {
       title: "JPG to PDF",
-      description: "Transform JPG, PNG, BMP, GIF, and TIFF images to PDF",
-      icon: "🖼️",
+      description: "Transform images to PDF quickly",
+      icon: <Image className="w-6 h-6" />,
       href: "/image",
-      color: "from-green-50 to-green-100",
+      color: "from-amber-500/10 to-amber-600/10",
       tag: "Popular",
     },
-    
-    // {
-    //   title: "Sign PDF",
-    //   description: "Create an electronic signature and sign your documents",
-    //   icon: "✍️",
-    //   href: "/sign",
-    //   color: "from-orange-50 to-orange-100",
-    //   tag: "Popular",
-    // },
-
-    // later we can add if needed 
-    // {
-    //   title: "Edit PDF",
-    //   description: "Add text, shapes, images and freehand annotations to your PDF",
-    //   icon: "✏️",
-    //   href: "/edit",
-    //   color: "from-pink-50 to-pink-100",
-    //   tag: "Popular",
-    // },
     {
       title: "Compress Docs",
-      description: "Reduce the size of your file without losing quality",
-      icon: "📦",
+      description: "Reduce file size without losing quality",
+      icon: <Compress className="w-6 h-6" />,
       href: "/compress",
-      color: "from-teal-50 to-teal-100",
+      color: "from-rose-500/10 to-rose-600/10",
       tag: "Popular",
     },
-
     {
       title: "Image Converter",
-      description: "Convert images to pdf, jpg,",
-      icon: "📦",
+      description: "Convert images to PDF, JPG, and more",
+      icon: <Image className="w-6 h-6" />,
       href: "/image",
-      color: "from-teal-50 to-teal-100",
+      color: "from-cyan-500/10 to-cyan-600/10",
       tag: "Popular",
     },
-   
   ];
 
   const features = [
     {
       title: "Work Directly on Your Files",
-      description: "Do more than just view PDFs. Highlight and add text, images, shapes, and freehand annotations to your documents. You can connect to 30 other tools to enhance your files further.",
-      icon: "🛠️",
+      description: "Do more than just view PDFs. Highlight and add text, images, shapes, and freehand annotations.",
+      icon: <Zap className="w-8 h-8" />,
     },
     {
       title: "Digital Signatures Made Easy",
-      description: "Fill in forms, e-sign contracts, and close deals in a few simple steps. You can also request e-signatures and track your document every step of the way.",
-      icon: "✍️",
+      description: "Fill in forms, e-sign contracts, and track your document every step of the way.",
+      icon: <CheckCircle className="w-8 h-8" />,
     },
     {
       title: "Create the Perfect Document",
-      description: "File too big? Compress it. Need a specific format? Convert it. Things getting chaotic? Merge and split files, or remove excess pages. Converter has it all.",
-      icon: "✨",
+      description: "Compress, convert, merge, split, or remove pages. Converter has it all.",
+      icon: <Sparkles className="w-8 h-8" />,
     },
     {
       title: "Manage Documents—All in One Place",
-      description: "No more working across multiple apps! Save time by storing, managing, and sharing files across devices—straight from our web platform.",
-      icon: "☁️",
+      description: "Store, manage, and share files across devices—straight from our web platform.",
+      icon: <Globe className="w-8 h-8" />,
     },
   ];
 
   const reasons = [
     {
       title: "Completely Free",
-      description: "No hidden costs, no subscriptions. All our tools are 100% free to use.",
-      icon: "🎁",
+      description: "No hidden costs, no subscriptions.",
+      icon: <Box className="w-6 h-6" />,
     },
     {
       title: "No Login Required",
-      description: "Start converting immediately without creating an account or providing personal information.",
-      icon: "🚀",
+      description: "Start converting immediately without an account.",
+      icon: <Clock className="w-6 h-6" />,
     },
     {
       title: "Secure & Private",
-      description: "Your files are encrypted and automatically deleted after conversion.",
-      icon: "🔒",
+      description: "Files are encrypted and auto-deleted.",
+      icon: <Lock className="w-6 h-6" />,
     },
     {
       title: "24/7 Availability",
-      description: "Our tools are always available whenever you need them.",
-      icon: "🌐",
+      description: "Always available whenever you need them.",
+      icon: <Globe className="w-6 h-6" />,
     },
     {
       title: "Fast Processing",
-      description: "Lightning-fast conversion speeds to save your valuable time.",
-      icon: "⚡",
+      description: "Lightning-fast conversion speeds.",
+      icon: <Zap className="w-6 h-6" />,
     },
     {
       title: "High Quality",
-      description: "Maintain the original quality of your documents during conversion.",
-      icon: "✨",
+      description: "Maintain original document quality.",
+      icon: <Sparkles className="w-6 h-6" />,
     },
   ];
 
-  const footerLinks = {
-
-    tools: [
-      { label: "PDF to Word", href: "/pdf" },
-      { label: "PDF to Excel", href: "/excel" },
-      { label: "PDF to PowerPoint", href: "/powerpoint" },
-      { label: "PDF to JPG", href: "/image" },
-      { label: "Merge PDF", href: "/merge" },
-      { label: "Compress PDF", href: "/compress" },
-      { label: "Sign PDF", href: "/sign" },
-      { label: "Edit PDF", href: "/edit" },
-    ],
-
-    formats: [
-      { label: "Word", href: "/word" },
-      { label: "Excel", href: "/excel" },
-      { label: "PowerPoint", href: "/powerpoint" },
-      { label: "Image", href: "/image" },
-      { label: "Text", href: "/text" },
-    ],
-
-    company: [
-      { label: "About Us", href: "/about" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms of Service", href: "/terms" },
-      { label: "Contact", href: "/contact" },
-      { label: "Developer API", href: "/developer" },
-    ],
-  };
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white selection:bg-blue-100 selection:text-blue-900">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-linear-to-br from-blue-600 via-blue-700 to-indigo-800 px-4 py-20 md:py-28">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 h-64 w-64 rounded-full bg-white"></div>
-          <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-white"></div>
-          <div className="absolute top-40 right-40 h-48 w-48 rounded-full bg-white"></div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 px-4 py-20 md:py-28">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-blue-500 blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-indigo-500 blur-3xl"></div>
+          <div className="absolute top-40 right-40 h-48 w-48 rounded-full bg-purple-500 blur-3xl"></div>
         </div>
         <div className="container relative z-10 mx-auto max-w-6xl text-center text-white">
-          <h1 className="mb-4 text-4xl font-bold md:text-5xl lg:text-6xl">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white/90 backdrop-blur-sm mb-6">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            </span>
+            Trusted by 2M+ users
+          </div>
+          <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
             We make PDF easy.
           </h1>
-          <p className="mx-auto mb-12 max-w-2xl text-lg text-blue-100 md:text-xl">
+          <p className="mx-auto mb-10 max-w-2xl text-lg text-blue-100/80 md:text-xl">
             All the tools you'll need to be more productive and work smarter with documents.
           </p>
 
           {/* Trust Bar */}
           <div className="mb-12 flex flex-wrap items-center justify-center gap-8 text-sm">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 backdrop-blur-sm">
               <span className="text-2xl">⭐</span>
-              <span>100% Free</span>
+              <span className="text-blue-100">100% Free</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 backdrop-blur-sm">
               <span className="text-2xl">🚀</span>
-              <span>No Login Required</span>
+              <span className="text-blue-100">No Login Required</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 backdrop-blur-sm">
               <span className="text-2xl">🔒</span>
-              <span>Secure & Private</span>
+              <span className="text-blue-100">Secure & Private</span>
             </div>
           </div>
 
           <Link
             href="/pdf"
-            className="inline-block rounded-full bg-white px-8 py-4 font-semibold text-blue-600 transition-all hover:scale-105 hover:shadow-xl"
+            className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-blue-600 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25"
           >
-            Get Started Free →
+            Get Started Free
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </section>
 
       {/* Most Popular Tools */}
-      <section className="px-4 py-16 md:py-24">
+      <section className="px-4 py-16 md:py-24 bg-gradient-to-b from-white to-blue-50/50">
         <div className="container mx-auto max-w-6xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-3 text-3xl font-bold text-gray-900 md:text-4xl">
-              Most Popular PDF Tools
+            <h2 className="mb-3 text-3xl font-bold text-gray-900 md:text-4xl tracking-tight">
+              Most Popular <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">PDF Tools</span>
             </h2>
             <p className="text-lg text-gray-600">
               All tools are completely free to use. No registration required.
@@ -220,20 +176,23 @@ export default function Home() {
               <Link
                 key={tool.title}
                 href={tool.href}
-                className={`group relative overflow-hidden rounded-2xl bg-linear-to-br ${tool.color} p-6 transition-all hover:scale-[1.02] hover:shadow-xl`}
+                className="group relative overflow-hidden rounded-2xl border border-gray-200/50 bg-white/80 backdrop-blur-sm p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200"
               >
                 {tool.tag && (
-                  <span className="absolute right-4 top-4 rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white">
+                  <span className="absolute right-4 top-4 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-3 py-1 text-xs font-medium text-white shadow-lg shadow-blue-500/25">
                     {tool.tag}
                   </span>
                 )}
-                <div className="text-4xl">{tool.icon}</div>
-                <h3 className="mt-3 text-xl font-semibold text-gray-900">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
+                  {tool.icon}
+                </div>
+                <h3 className="mt-4 text-xl font-semibold text-gray-900">
                   {tool.title}
                 </h3>
-                <p className="mt-2 text-gray-700">{tool.description}</p>
-                <div className="mt-4 flex items-center text-blue-600 font-medium group-hover:underline">
-                  Convert Now →
+                <p className="mt-2 text-sm text-gray-600">{tool.description}</p>
+                <div className="mt-4 flex items-center text-sm font-medium text-blue-600 group-hover:gap-2 transition-all">
+                  Convert Now
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
             ))}
@@ -242,11 +201,11 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="bg-gray-50 px-4 py-16 md:py-24">
+      <section className="bg-gray-50/80 px-4 py-16 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
-              Keep Your Simple Tasks Simple
+            <h2 className="text-3xl font-bold text-gray-900 md:text-4xl tracking-tight">
+              Keep Your Simple Tasks <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Simple</span>
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600">
               We have all the tools you'll need to start, manage, and finish your work with digital documents.
@@ -257,13 +216,15 @@ export default function Home() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="rounded-2xl bg-white p-8 shadow-sm transition-all hover:shadow-lg"
+                className="group rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 border border-gray-100/50"
               >
-                <div className="mb-4 text-5xl">{feature.icon}</div>
+                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
+                  {feature.icon}
+                </div>
                 <h3 className="mb-3 text-2xl font-bold text-gray-900">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -271,11 +232,11 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="px-4 py-16 md:py-24">
+      <section className="px-4 py-16 md:py-24 bg-white">
         <div className="container mx-auto max-w-6xl">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
-              Why Choose Our Converter?
+            <h2 className="text-3xl font-bold text-gray-900 md:text-4xl tracking-tight">
+              Why Choose <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Our Converter</span>?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600">
               We provide the best free PDF conversion tools with no strings attached.
@@ -286,13 +247,15 @@ export default function Home() {
             {reasons.map((reason) => (
               <div
                 key={reason.title}
-                className="rounded-2xl border border-gray-100 p-6 transition-all hover:shadow-lg"
+                className="group rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-1 hover:border-blue-200"
               >
-                <div className="mb-3 text-4xl">{reason.icon}</div>
+                <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
+                  {reason.icon}
+                </div>
                 <h3 className="mb-2 text-lg font-semibold text-gray-900">
                   {reason.title}
                 </h3>
-                <p className="text-gray-600">{reason.description}</p>
+                <p className="text-sm text-gray-600">{reason.description}</p>
               </div>
             ))}
           </div>
@@ -300,25 +263,30 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-linear-to-br from-blue-600 to-indigo-700 px-4 py-16 text-center text-white md:py-24">
-        <div className="container mx-auto max-w-3xl">
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-            Start Converting for Free
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 px-4 py-16 text-center text-white md:py-24">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 h-64 w-64 rounded-full bg-white blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 h-64 w-64 rounded-full bg-white blur-3xl"></div>
+        </div>
+        <div className="container relative z-10 mx-auto max-w-3xl">
+          <h2 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
+            Start Converting for <span className="text-yellow-300">Free</span>
           </h2>
-          <p className="mb-8 text-lg text-blue-100">
+          <p className="mb-8 text-lg text-blue-100/90">
             No sign-up required. No credit card needed. Just upload and convert.
           </p>
           <Link
             href="/pdf"
-            className="inline-block rounded-full bg-white px-8 py-4 font-semibold text-blue-600 transition-all hover:scale-105 hover:shadow-xl"
+            className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-blue-600 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30"
           >
-            Get Started Now →
+            Get Started Now
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white">
+      <footer className="bg-slate-900 text-white">
         <div className="container mx-auto max-w-6xl px-4 py-16">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
@@ -330,7 +298,7 @@ export default function Home() {
                 </svg>
                 <span className="text-2xl font-bold text-white">Converter</span>
               </Link>
-              <p className="mt-4 text-sm text-gray-400">
+              <p className="mt-4 text-sm text-gray-400 leading-relaxed">
                 Free online file conversion tools. No registration required. Your privacy is our priority.
               </p>
             </div>
@@ -339,13 +307,14 @@ export default function Home() {
             <div>
               <h4 className="mb-4 text-lg font-semibold text-white">Tools</h4>
               <ul className="space-y-2">
-                {footerLinks.tools.slice(0, 6).map((link) => (
-                  <li key={link.label}>
+                {popularTools.slice(0, 6).map((tool) => (
+                  <li key={tool.title}>
                     <Link
-                      href={link.href}
-                      className="text-sm text-gray-400 transition-colors hover:text-white"
+                      href={tool.href}
+                      className="text-sm text-gray-400 transition-colors hover:text-white flex items-center gap-2"
                     >
-                      {link.label}
+                      <span className="w-4 h-4 text-blue-400">{tool.icon}</span>
+                      {tool.title}
                     </Link>
                   </li>
                 ))}
@@ -356,13 +325,13 @@ export default function Home() {
             <div>
               <h4 className="mb-4 text-lg font-semibold text-white">Formats</h4>
               <ul className="space-y-2">
-                {footerLinks.formats.map((link) => (
-                  <li key={link.label}>
+                {["Word", "Excel", "PowerPoint", "Image", "Text"].map((format) => (
+                  <li key={format}>
                     <Link
-                      href={link.href}
+                      href={`/${format.toLowerCase()}`}
                       className="text-sm text-gray-400 transition-colors hover:text-white"
                     >
-                      {link.label}
+                      {format}
                     </Link>
                   </li>
                 ))}
@@ -373,13 +342,13 @@ export default function Home() {
             <div>
               <h4 className="mb-4 text-lg font-semibold text-white">Company</h4>
               <ul className="space-y-2">
-                {footerLinks.company.map((link) => (
-                  <li key={link.label}>
+                {["About Us", "Privacy Policy", "Terms of Service", "Contact", "Developer API"].map((link) => (
+                  <li key={link}>
                     <Link
-                      href={link.href}
+                      href={`/${link.toLowerCase().replace(/\s+/g, '')}`}
                       className="text-sm text-gray-400 transition-colors hover:text-white"
                     >
-                      {link.label}
+                      {link}
                     </Link>
                   </li>
                 ))}
@@ -410,13 +379,13 @@ export default function Home() {
                 &copy; {new Date().getFullYear()} Converter. All rights reserved.
               </p>
               <div className="flex gap-6 text-sm text-gray-400">
-                <Link href="/privacy" className="hover:text-white">
+                <Link href="/privacy" className="hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
-                <Link href="/terms" className="hover:text-white">
+                <Link href="/terms" className="hover:text-white transition-colors">
                   Terms of Service
                 </Link>
-                <Link href="/contact" className="hover:text-white">
+                <Link href="/contact" className="hover:text-white transition-colors">
                   Contact
                 </Link>
               </div>
