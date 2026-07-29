@@ -10,11 +10,10 @@ const Navbar = () => {
 
   const navItems = [
     { label: "Compress", href: "/compress" },
-    { label: "Convert", href: "/convert" },
+    { label: "Convert", href: "/pdf" },
     { label: "Merge", href: "/merge" },
-    { label: "Edit", href: "/edit" },
-    { label: "Sign", href: "/sign" },
-    { label: "AI PDF", href: "/ai-pdf" },
+    { label: "Image", href: "/image" },
+    { label: "Excel", href: "/excel" },
   ];
 
   const isActive = (path) => {

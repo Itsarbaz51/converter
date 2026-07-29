@@ -1,20 +1,3 @@
-// export default function Home() {
-//     return (
-//         <main
-//             style={{
-//                 display: "flex",
-//                 justifyContent: "center",
-//                 alignItems: "center",
-//                 height: "100vh",
-//                 fontSize: "40px",
-//                 fontWeight: "bold",
-//             }}
-//         >
-//             Hello Frontend 🚀
-//         </main>
-//     );
-// }
-
 import Link from "next/link";
 
 export default function Home() {
@@ -27,6 +10,16 @@ export default function Home() {
       color: "from-blue-50 to-blue-100",
       tag: "Popular",
     },
+
+    {
+      title: "Excel to Word",
+      description: "Convert Excel to Pdf, CSV and text",
+      icon: "📄",
+      href: "/excel",
+      color: "from-blue-50 to-blue-100",
+      tag: "Popular",
+    },
+
     {
       title: "Merge PDF",
       description: "Combine multiple PDFs into one unified document",
@@ -60,21 +53,23 @@ export default function Home() {
       tag: "Popular",
     },
     {
-      title: "Compress PDF",
-      description: "Reduce the size of your PDF without losing quality",
+      title: "Compress Docs",
+      description: "Reduce the size of your file without losing quality",
       icon: "📦",
       href: "/compress",
       color: "from-teal-50 to-teal-100",
       tag: "Popular",
     },
+
     {
-      title: "API Documentaion",
-      description: "create api documentation",
-      icon: "👩‍💻",
-      href: "/developer",
+      title: "Image Converter",
+      description: "Convert images to pdf, jpg,",
+      icon: "📦",
+      href: "/image",
       color: "from-teal-50 to-teal-100",
-      tag: "Popular"
-    }
+      tag: "Popular",
+    },
+   
   ];
 
   const features = [
@@ -134,6 +129,7 @@ export default function Home() {
   ];
 
   const footerLinks = {
+
     tools: [
       { label: "PDF to Word", href: "/pdf" },
       { label: "PDF to Excel", href: "/excel" },
@@ -144,6 +140,7 @@ export default function Home() {
       { label: "Sign PDF", href: "/sign" },
       { label: "Edit PDF", href: "/edit" },
     ],
+
     formats: [
       { label: "Word", href: "/word" },
       { label: "Excel", href: "/excel" },
@@ -151,12 +148,13 @@ export default function Home() {
       { label: "Image", href: "/image" },
       { label: "Text", href: "/text" },
     ],
+
     company: [
       { label: "About Us", href: "/about" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
       { label: "Contact", href: "/contact" },
-      // { label: "Developer API", href: "/developer" },
+      { label: "Developer API", href: "/developer" },
     ],
   };
 
