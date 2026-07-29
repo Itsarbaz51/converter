@@ -36,22 +36,25 @@ export default function Home() {
       color: "from-green-50 to-green-100",
       tag: "Popular",
     },
-    {
-      title: "Sign PDF",
-      description: "Create an electronic signature and sign your documents",
-      icon: "✍️",
-      href: "/sign",
-      color: "from-orange-50 to-orange-100",
-      tag: "Popular",
-    },
-    {
-      title: "Edit PDF",
-      description: "Add text, shapes, images and freehand annotations to your PDF",
-      icon: "✏️",
-      href: "/edit",
-      color: "from-pink-50 to-pink-100",
-      tag: "Popular",
-    },
+    
+    // {
+    //   title: "Sign PDF",
+    //   description: "Create an electronic signature and sign your documents",
+    //   icon: "✍️",
+    //   href: "/sign",
+    //   color: "from-orange-50 to-orange-100",
+    //   tag: "Popular",
+    // },
+
+    // later we can add if needed 
+    // {
+    //   title: "Edit PDF",
+    //   description: "Add text, shapes, images and freehand annotations to your PDF",
+    //   icon: "✏️",
+    //   href: "/edit",
+    //   color: "from-pink-50 to-pink-100",
+    //   tag: "Popular",
+    // },
     {
       title: "Compress Docs",
       description: "Reduce the size of your file without losing quality",
