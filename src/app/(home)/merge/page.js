@@ -132,7 +132,7 @@ export default function PdfMerger() {
             <ul className="divide-y divide-gray-200">
                 {files.map((file, idx) => (
                     <li key={idx} className="flex justify-between items-center py-2 px-1">
-                        <span className="truncate text-sm text-gray-700 max-w-[200px] sm:max-w-xs">
+                        <span className="truncate text-sm text-gray-700 max-w-50 sm:max-w-xs">
                             {file.name} <span className="text-gray-400 text-xs">({(file.size / 1024).toFixed(1)} KB)</span>
                         </span>
                         <button
@@ -148,7 +148,7 @@ export default function PdfMerger() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-10 px-4 flex items-start justify-center">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 to-blue-50 py-10 px-4 flex items-start justify-center">
             <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-6 md:p-8 transition-all">
                 <h1 className="text-3xl font-bold text-gray-800 mb-1 flex items-center gap-2">
                     <span className="bg-blue-100 text-blue-700 p-2 rounded-lg">📄</span>

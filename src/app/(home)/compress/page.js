@@ -355,7 +355,7 @@ export default function FileCompressor() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 py-10 px-4 flex items-start justify-center">
+    <div className="min-h-screen bg-linear-to-br from-indigo-50 to-purple-50 py-10 px-4 flex items-start justify-center">
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-6 md:p-8 transition-all">
         <h1 className="text-3xl font-bold text-gray-800 mb-1 flex items-center gap-2">
           <span className="bg-purple-100 text-purple-700 p-2 rounded-lg">🗜️</span> 
