@@ -119,13 +119,18 @@ export default function Home() {
           <div className="absolute top-40 right-40 h-48 w-48 rounded-full bg-purple-500 blur-3xl"></div>
         </div>
         <div className="container relative z-10 mx-auto max-w-6xl text-center text-white">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white/90 backdrop-blur-sm mb-6">
+
+
+            {/* Trusted by 2M+ users */}
+            
+          {/* <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white/90 backdrop-blur-sm mb-6">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
             </span>
-            Trusted by 2M+ users
-          </div>
+            {/* Trusted by 2M+ users */}
+          {/* </div> */}
+
           <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl bg-linear-to-r from-white to-blue-200 bg-clip-text text-transparent">
             We make PDF easy.
           </h1>

@@ -29,8 +29,10 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <div className="flex items-center">
-                <span className="text-2xl font-bold text-blue-600">Small</span>
-                <span className="text-2xl font-bold text-gray-800">pdf</span>
+                {/* // name of the application is ApexConvert */}
+                {/* // name of the application is Convertly */}
+                {/* <span className="text-2xl font-bold text-black">Apex</span> */}
+                <span className="text-2xl font-bold text-blue-600">Convertly</span>
               </div>
             </Link>
           </div>
