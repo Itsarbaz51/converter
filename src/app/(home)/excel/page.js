@@ -106,7 +106,7 @@ export default function ExcelPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Animated background particles */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {[...Array(20)].map((_, i) => (
@@ -152,7 +152,7 @@ export default function ExcelPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-2xl shadow-lg inline-flex items-center gap-3">
+              <div className="bg-linear-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-2xl shadow-lg inline-flex items-center gap-3">
                 <FileSpreadsheet className="w-8 h-8" />
                 <span className="text-2xl font-bold">Excel Converter</span>
               </div>
@@ -186,7 +186,7 @@ export default function ExcelPage() {
                       onClick={() => setConversionType(option.value)}
                       className={`relative p-4 rounded-xl text-left transition-all duration-300 ${
                         isSelected 
-                          ? `bg-gradient-to-r ${option.color} text-white shadow-lg scale-105` 
+                          ? `bg-linear-to-r ${option.color} text-white shadow-lg scale-105` 
                           : 'bg-gray-50 hover:bg-gray-100 text-gray-700'
                       }`}
                       whileHover={{ scale: 1.02 }}
@@ -257,7 +257,7 @@ export default function ExcelPage() {
                   }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
-                  <div className="inline-block p-4 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl mb-4">
+                  <div className="inline-block p-4 bg-linear-to-br from-blue-100 to-indigo-100 rounded-2xl mb-4">
                     <Upload className="w-12 h-12 text-blue-600" />
                   </div>
                 </motion.div>
@@ -343,7 +343,7 @@ export default function ExcelPage() {
                 >
                   <div className="bg-gray-200 rounded-full h-2 overflow-hidden">
                     <motion.div
-                      className="h-full bg-gradient-to-r from-blue-500 to-indigo-600"
+                      className="h-full bg-linear-to-r from-blue-500 to-indigo-600"
                       initial={{ width: 0 }}
                       animate={{ width: `${progress}%` }}
                       transition={{ duration: 0.3 }}
@@ -387,8 +387,8 @@ export default function ExcelPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-90 group-hover:opacity-100 transition-opacity rounded-xl" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 blur-xl opacity-30 group-hover:opacity-50 transition-opacity rounded-xl" />
+                    <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-indigo-600 opacity-90 group-hover:opacity-100 transition-opacity rounded-xl" />
+                    <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-indigo-600 blur-xl opacity-30 group-hover:opacity-50 transition-opacity rounded-xl" />
                     
                     <div className="relative flex items-center justify-center gap-3 py-4 px-6">
                       <span className="text-white font-semibold text-lg">

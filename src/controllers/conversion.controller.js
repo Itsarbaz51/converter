@@ -5,23 +5,6 @@ import {
   convertedDownloadService,
 } from "@/services/conversion.service";
 
-// export const convertController = asyncHandler(
-//   async (request, paramsPromise) => {
-//     const params = await paramsPromise;
-
-//     const formData = await request.formData();
-//     const file = formData.get("file");
-
-//     const result = await convertService({
-//       slug: params.slug,
-//       file,
-//     });
-
-//     return Response.json(
-//       new ApiResponse(200, "File Converted Successfully", result),
-//     );
-//   },
-// );
 
 export const convertController = asyncHandler(async (request, paramsPromise) => {
   try {

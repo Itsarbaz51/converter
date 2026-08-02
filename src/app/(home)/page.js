@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle, Zap, Shield, Globe, Lock, Clock, Sparkles, FileText, Image, Merge, Compress, Box } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap, Shield, Globe, Lock, Clock, Sparkles, FileText, Image, Merge,  Box } from "lucide-react";
 
 export default function Home() {
   const popularTools = [
     {
       title: "PDF to Word",
       description: "Convert PDFs to editable Word documents",
-      icon: <FileText className="w-6 h-6" />,
+      // icon: <FileText className="w-6 h-6" />,
       href: "/pdf",
       color: "from-blue-500/10 to-blue-600/10",
       tag: "Popular",
@@ -14,7 +14,7 @@ export default function Home() {
     {
       title: "Excel to PDF",
       description: "Convert Excel to PDF, CSV and text",
-      icon: <FileText className="w-6 h-6" />,
+      // icon: <FileText className="w-6 h-6" />,
       href: "/excel",
       color: "from-emerald-500/10 to-emerald-600/10",
       tag: "Popular",
@@ -22,7 +22,7 @@ export default function Home() {
     {
       title: "Merge PDF",
       description: "Combine multiple PDFs into one unified document",
-      icon: <Merge className="w-6 h-6" />,
+      // icon: <Merge className="w-6 h-6" />,
       href: "/merge",
       color: "from-purple-500/10 to-purple-600/10",
       tag: "Popular",
@@ -30,7 +30,7 @@ export default function Home() {
     {
       title: "JPG to PDF",
       description: "Transform images to PDF quickly",
-      icon: <Image className="w-6 h-6" />,
+      // icon: <Image className="w-6 h-6" />,
       href: "/image",
       color: "from-amber-500/10 to-amber-600/10",
       tag: "Popular",
@@ -38,7 +38,7 @@ export default function Home() {
     {
       title: "Compress Docs",
       description: "Reduce file size without losing quality",
-      icon: <Compress className="w-6 h-6" />,
+      // icon: <Compress className="w-6 h-6" />,
       href: "/compress",
       color: "from-rose-500/10 to-rose-600/10",
       tag: "Popular",
@@ -46,7 +46,7 @@ export default function Home() {
     {
       title: "Image Converter",
       description: "Convert images to PDF, JPG, and more",
-      icon: <Image className="w-6 h-6" />,
+      // icon: <Image className="w-6 h-6" />,
       href: "/image",
       color: "from-cyan-500/10 to-cyan-600/10",
       tag: "Popular",
@@ -112,7 +112,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white selection:bg-blue-100 selection:text-blue-900">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 px-4 py-20 md:py-28">
+      <section className="relative overflow-hidden bg-linear-to-br from-slate-900 via-blue-950 to-indigo-950 px-4 py-20 md:py-28">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-blue-500 blur-3xl"></div>
           <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-indigo-500 blur-3xl"></div>
@@ -126,7 +126,7 @@ export default function Home() {
             </span>
             Trusted by 2M+ users
           </div>
-          <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+          <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl bg-linear-to-r from-white to-blue-200 bg-clip-text text-transparent">
             We make PDF easy.
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-blue-100/80 md:text-xl">
@@ -160,11 +160,11 @@ export default function Home() {
       </section>
 
       {/* Most Popular Tools */}
-      <section className="px-4 py-16 md:py-24 bg-gradient-to-b from-white to-blue-50/50">
+      <section className="px-4 py-16 md:py-24 bg-linear-to-b from-white to-blue-50/50">
         <div className="container mx-auto max-w-6xl">
           <div className="mb-12 text-center">
             <h2 className="mb-3 text-3xl font-bold text-gray-900 md:text-4xl tracking-tight">
-              Most Popular <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">PDF Tools</span>
+              Most Popular <span className="bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">PDF Tools</span>
             </h2>
             <p className="text-lg text-gray-600">
               All tools are completely free to use. No registration required.
@@ -179,11 +179,11 @@ export default function Home() {
                 className="group relative overflow-hidden rounded-2xl border border-gray-200/50 bg-white/80 backdrop-blur-sm p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200"
               >
                 {tool.tag && (
-                  <span className="absolute right-4 top-4 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-3 py-1 text-xs font-medium text-white shadow-lg shadow-blue-500/25">
+                  <span className="absolute right-4 top-4 rounded-full bg-linear-to-r from-blue-600 to-indigo-600 px-3 py-1 text-xs font-medium text-white shadow-lg shadow-blue-500/25">
                     {tool.tag}
                   </span>
                 )}
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
                   {tool.icon}
                 </div>
                 <h3 className="mt-4 text-xl font-semibold text-gray-900">
@@ -205,7 +205,7 @@ export default function Home() {
         <div className="container mx-auto max-w-6xl">
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold text-gray-900 md:text-4xl tracking-tight">
-              Keep Your Simple Tasks <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Simple</span>
+              Keep Your Simple Tasks <span className="bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Simple</span>
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600">
               We have all the tools you'll need to start, manage, and finish your work with digital documents.
@@ -218,7 +218,7 @@ export default function Home() {
                 key={index}
                 className="group rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 border border-gray-100/50"
               >
-                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
+                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-linear-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
                   {feature.icon}
                 </div>
                 <h3 className="mb-3 text-2xl font-bold text-gray-900">
@@ -236,7 +236,7 @@ export default function Home() {
         <div className="container mx-auto max-w-6xl">
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold text-gray-900 md:text-4xl tracking-tight">
-              Why Choose <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Our Converter</span>?
+              Why Choose <span className="bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Our Converter</span>?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600">
               We provide the best free PDF conversion tools with no strings attached.
@@ -249,7 +249,7 @@ export default function Home() {
                 key={reason.title}
                 className="group rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-1 hover:border-blue-200"
               >
-                <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
+                <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-500/10 to-indigo-500/10 text-blue-600 group-hover:scale-110 transition-transform">
                   {reason.icon}
                 </div>
                 <h3 className="mb-2 text-lg font-semibold text-gray-900">
@@ -263,7 +263,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 px-4 py-16 text-center text-white md:py-24">
+      <section className="relative overflow-hidden bg-linear-to-br from-blue-600 to-indigo-700 px-4 py-16 text-center text-white md:py-24">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 h-64 w-64 rounded-full bg-white blur-3xl"></div>
           <div className="absolute bottom-10 right-10 h-64 w-64 rounded-full bg-white blur-3xl"></div>
