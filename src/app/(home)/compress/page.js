@@ -47,7 +47,7 @@ export default function FileCompressor() {
         useWebWorker: true,
         quality: options.quality,
       };
-      
+
       const compressedFile = await imageCompression(file, imageOptions);
       return compressedFile;
     } catch (err) {
@@ -61,10 +61,10 @@ export default function FileCompressor() {
     try {
       const arrayBuffer = await file.arrayBuffer();
       const pdfDoc = await PDFDocument.load(arrayBuffer);
-      
+
       // Compress by reducing quality and removing unused objects
       pdfDoc.compress();
-      
+
       // Save with reduced quality (for images within PDF)
       const pdfBytes = await pdfDoc.save({
         useObjectStreams: true,
@@ -72,12 +72,12 @@ export default function FileCompressor() {
         objectsPerTick: 50,
         updateField: (field) => field
       });
-      
+
       const compressedBlob = new Blob([pdfBytes], { type: 'application/pdf' });
       const compressedFile = new File([compressedBlob], file.name, {
         type: 'application/pdf'
       });
-      
+
       return compressedFile;
     } catch (err) {
       console.error('PDF compression error:', err);
@@ -95,11 +95,11 @@ export default function FileCompressor() {
       const content = await file.arrayBuffer();
       await zip.file(file.name, content);
       const compressed = await zip.generateAsync({ type: 'blob' });
-      
+
       const compressedFile = new File([compressed], file.name, {
         type: file.type
       });
-      
+
       return compressedFile;
     } catch (err) {
       console.error('DOC compression error:', err);
@@ -116,12 +116,12 @@ export default function FileCompressor() {
         .replace(/\s+/g, ' ')
         .replace(/\n\s*\n/g, '\n')
         .trim();
-      
+
       const blob = new Blob([compressedText], { type: file.type });
       const compressedFile = new File([blob], file.name, {
         type: file.type
       });
-      
+
       return compressedFile;
     } catch (err) {
       console.error('Text compression error:', err);
@@ -133,14 +133,14 @@ export default function FileCompressor() {
   const compressFile = async (file) => {
     const options = compressionOptions[compressionLevel];
     const fileType = file.type;
-    
+
     try {
       if (fileType.startsWith('image/')) {
         return await compressImage(file, options);
       } else if (fileType === 'application/pdf') {
         return await compressPdf(file, options);
       } else if (
-        fileType === 'application/msword' || 
+        fileType === 'application/msword' ||
         fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
       ) {
         return await compressDoc(file, options);
@@ -156,11 +156,11 @@ export default function FileCompressor() {
         const content = await file.arrayBuffer();
         await zip.file(file.name, content);
         const compressed = await zip.generateAsync({ type: 'blob' });
-        
+
         const compressedFile = new File([compressed], file.name.replace(/\.[^.]+$/, '.zip'), {
           type: 'application/zip'
         });
-        
+
         return compressedFile;
       }
     } catch (err) {
@@ -173,7 +173,7 @@ export default function FileCompressor() {
   const handleFileChange = (e) => {
     const selected = Array.from(e.target.files);
     if (selected.length === 0) return;
-    
+
     setError('');
     setFiles(prev => [...prev, ...selected]);
     e.target.value = '';
@@ -196,7 +196,7 @@ export default function FileCompressor() {
   // Handle compression
   const handleCompress = async () => {
     if (files.length === 0) {
-      setError('Please upload at least one file to compress.');
+      setError('Please upload a file to compress.');
       return;
     }
 
@@ -231,7 +231,7 @@ export default function FileCompressor() {
 
     try {
       const zip = new JSZip();
-      
+
       for (const file of compressedFiles) {
         const content = await file.arrayBuffer();
         zip.file(file.name, content);
@@ -287,7 +287,7 @@ export default function FileCompressor() {
         {files.map((file, idx) => {
           const compressedFile = compressedFiles[idx];
           const sizeDiff = compressedFile ? getSizeDifference(file, compressedFile) : null;
-          
+
           return (
             <li key={idx} className="py-3 px-1">
               <div className="flex justify-between items-center">
@@ -345,10 +345,10 @@ export default function FileCompressor() {
   const handleDrop = (e) => {
     e.preventDefault();
     e.currentTarget.classList.remove('drop-highlight');
-    
+
     const dropped = Array.from(e.dataTransfer.files);
     if (dropped.length === 0) return;
-    
+
     setError('');
     setFiles(prev => [...prev, ...dropped]);
     setCompressedFiles([]);
@@ -358,7 +358,7 @@ export default function FileCompressor() {
     <div className="min-h-screen bg-linear-to-br from-indigo-50 to-purple-50 py-10 px-4 flex items-start justify-center">
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-6 md:p-8 transition-all">
         <h1 className="text-3xl font-bold text-gray-800 mb-1 flex items-center gap-2">
-          <span className="bg-purple-100 text-purple-700 p-2 rounded-lg">🗜️</span> 
+          <span className="bg-purple-100 text-purple-700 p-2 rounded-lg">🗜️</span>
           File Compressor
         </h1>
         <p className="text-gray-500 mb-6 text-sm">
@@ -380,11 +380,10 @@ export default function FileCompressor() {
               <button
                 key={key}
                 onClick={() => setCompressionLevel(key)}
-                className={`px-3 py-1 text-sm rounded-lg transition ${
-                  compressionLevel === key
+                className={`px-3 py-1 text-sm rounded-lg transition ${compressionLevel === key
                     ? 'bg-purple-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 {option.label}
               </button>
@@ -430,7 +429,7 @@ export default function FileCompressor() {
         {isCompressing && (
           <div className="mt-4">
             <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div 
+              <div
                 className="bg-purple-600 h-2.5 rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
               ></div>
@@ -458,11 +457,10 @@ export default function FileCompressor() {
             <button
               onClick={handleCompress}
               disabled={isCompressing || files.length === 0}
-              className={`px-5 py-2 text-sm font-medium rounded-lg transition shadow-sm ${
-                isCompressing || files.length === 0
+              className={`px-5 py-2 text-sm font-medium rounded-lg transition shadow-sm ${isCompressing || files.length === 0
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-purple-600 hover:bg-purple-700 text-white'
-              }`}
+                }`}
             >
               {isCompressing ? 'Compressing...' : '🗜️ Compress Files'}
             </button>
