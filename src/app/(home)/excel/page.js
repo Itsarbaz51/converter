@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  FileSpreadsheet, 
-  FileDown, 
-  FileText, 
+import {
+  FileSpreadsheet,
+  FileDown,
+  FileText,
   FileJson,
   Upload,
   X,
@@ -16,6 +16,7 @@ import {
   Table,
   FileSpreadsheet as ExcelIcon
 } from 'lucide-react';
+import { a } from 'framer-motion/client';
 
 export default function ExcelPage() {
   const [files, setFiles] = useState([]);
@@ -26,29 +27,29 @@ export default function ExcelPage() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const conversionOptions = [
-    { 
-      value: 'excel-to-pdf', 
+    {
+      value: 'excel-to-pdf',
       label: 'Excel to PDF',
       icon: FileDown,
       color: 'from-red-500 to-orange-500',
       description: 'Convert spreadsheets to PDF documents'
     },
-    { 
-      value: 'excel-to-csv', 
+    {
+      value: 'excel-to-csv',
       label: 'Excel to CSV',
       icon: Table,
       color: 'from-green-500 to-emerald-500',
       description: 'Convert to comma-separated values'
     },
-    { 
-      value: 'excel-to-json', 
+    {
+      value: 'excel-to-json',
       label: 'Excel to JSON',
       icon: FileJson,
       color: 'from-blue-500 to-indigo-500',
       description: 'Convert to JSON data format'
     },
-    { 
-      value: 'excel-to-text', 
+    {
+      value: 'excel-to-text',
       label: 'Excel to Text',
       icon: FileText,
       color: 'from-purple-500 to-pink-500',
@@ -57,38 +58,84 @@ export default function ExcelPage() {
   ];
 
   const handleFileUpload = (newFiles) => {
-    const validFiles = newFiles.filter(file => 
+    const validFiles = newFiles.filter(file =>
       file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
       file.type === 'application/vnd.ms-excel' ||
-      file.name.endsWith('.xlsx') || 
+      file.name.endsWith('.xlsx') ||
       file.name.endsWith('.xls')
     );
-    
+
     if (validFiles.length !== newFiles.length) {
       // Show warning for invalid files
     }
-    
+
     setFiles([...files, ...validFiles]);
+
+    setFiles(validFiles)
+
+    if (validFiles.length > 0) {
+      handleConvert(validFiles)
+    }
+
   };
+
+
+
 
   const handleRemoveFile = (index) => {
     setFiles(files.filter((_, i) => i !== index));
   };
 
-  const handleConvert = async () => {
-    if (files.length === 0) return;
-    
+  const handleConvert = async (uploadedFiles) => {
+    const file = uploadedFiles[0];
+
+    if (!file) return;
+
     setIsConverting(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("conversionType", conversionType);
+
+    const response = await fetch(`/api/tools/${conversionType}/convert`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      setIsConverting(false);
+      return;
+    }
+
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+
+    const extension = conversionType.split("-")[2];
+
+    a.download = `${file.name.split(".")[0]}.${extension}`;
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
+
+
+    setIsConverting(false);
     setProgress(0);
-    setShowSuccess(false);
-    
+    setShowSuccess(true);
+
     // Simulate conversion progress
     for (let i = 0; i <= 100; i += 10) {
       await new Promise(resolve => setTimeout(resolve, 200));
       setProgress(i);
     }
-    
-    setIsConverting(false);
+
+
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 5000);
   };
@@ -134,20 +181,20 @@ export default function ExcelPage() {
       </div>
 
       <div className="container mx-auto px-4 py-12 relative">
-        <motion.div 
+        <motion.div
           className="max-w-5xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           {/* Header */}
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <motion.div 
+            <motion.div
               className="inline-block mb-4"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -163,7 +210,7 @@ export default function ExcelPage() {
           </motion.div>
 
           {/* Main Card */}
-          <motion.div 
+          <motion.div
             className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/50"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -179,16 +226,15 @@ export default function ExcelPage() {
                 {conversionOptions.map((option) => {
                   const Icon = option.icon;
                   const isSelected = conversionType === option.value;
-                  
+
                   return (
                     <motion.button
                       key={option.value}
                       onClick={() => setConversionType(option.value)}
-                      className={`relative p-4 rounded-xl text-left transition-all duration-300 ${
-                        isSelected 
-                          ? `bg-linear-to-r ${option.color} text-white shadow-lg scale-105` 
-                          : 'bg-gray-50 hover:bg-gray-100 text-gray-700'
-                      }`}
+                      className={`relative p-4 rounded-xl text-left transition-all duration-300 ${isSelected
+                        ? `bg-linear-to-r ${option.color} text-white shadow-lg scale-105`
+                        : 'bg-gray-50 hover:bg-gray-100 text-gray-700'
+                        }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -222,11 +268,10 @@ export default function ExcelPage() {
 
             {/* Upload Area */}
             <motion.div
-              className={`relative border-3 border-dashed rounded-2xl p-12 transition-all duration-300 ${
-                isDragging 
-                  ? 'border-blue-500 bg-blue-50/50 scale-105' 
-                  : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50/50'
-              }`}
+              className={`relative border-3 border-dashed rounded-2xl p-12 transition-all duration-300 ${isDragging
+                ? 'border-blue-500 bg-blue-50/50 scale-105'
+                : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50/50'
+                }`}
               onDragEnter={() => setIsDragging(true)}
               onDragLeave={() => setIsDragging(false)}
               onDragOver={(e) => e.preventDefault()}
@@ -248,10 +293,10 @@ export default function ExcelPage() {
                   e.target.value = '';
                 }}
               />
-              
+
               <div className="text-center">
                 <motion.div
-                  animate={{ 
+                  animate={{
                     y: isDragging ? -10 : 0,
                     scale: isDragging ? 1.05 : 1
                   }}
@@ -295,7 +340,7 @@ export default function ExcelPage() {
                       Clear All
                     </motion.button>
                   </div>
-                  
+
                   <div className="space-y-2 max-h-64 overflow-y-auto pr-2">
                     {files.map((file, index) => (
                       <motion.div
@@ -389,7 +434,7 @@ export default function ExcelPage() {
                   >
                     <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-indigo-600 opacity-90 group-hover:opacity-100 transition-opacity rounded-xl" />
                     <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-indigo-600 blur-xl opacity-30 group-hover:opacity-50 transition-opacity rounded-xl" />
-                    
+
                     <div className="relative flex items-center justify-center gap-3 py-4 px-6">
                       <span className="text-white font-semibold text-lg">
                         {isConverting ? 'Converting...' : 'Convert Files'}
@@ -410,7 +455,7 @@ export default function ExcelPage() {
           </motion.div>
 
           {/* Features Footer */}
-          <motion.div 
+          <motion.div
             className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
