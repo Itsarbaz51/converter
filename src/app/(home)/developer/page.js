@@ -1,8 +1,3 @@
-
-
-// Instead of this code we will use other code 
-// we provide api of our projects so that other can use it
-
 import {
   Upload,
   FileText,
@@ -156,7 +151,7 @@ export default function ApiDocsGenerator() {
                   <h3 className="mt-6">Response</h3>
 
                   <pre className="rounded-lg bg-black p-4 overflow-auto">
-{`{
+                    {`{
   "success": true,
   "users": [
     {

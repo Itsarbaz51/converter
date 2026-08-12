@@ -33,9 +33,15 @@ const fileSchema = new mongoose.Schema({
         required: true
     },
 
+    // category: {
+    //     type: String,
+    //     required: true
+    // },
+
     category: {
         type: String,
-        required: true
+        required: true,
+        enum: ["document", "image", "video", "audio"]
     },
 
     storageProvider: {

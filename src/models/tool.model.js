@@ -18,19 +18,26 @@ const toolSchema = new mongoose.Schema(
 
         category: {
             type: String,
-            // enum: [
-            //     "image",
-            //     "pdf",
-            //     "word",
-            //     "excel",
-            //     "ppt",
-            //     "video",
-            //     "audio",
-            //     "archive",
-            //     "utility",
-            // ],
+            enum: [
+                "document",
+                "image",
+                "pdf",
+                "word",
+                "excel",
+                "ppt",
+                "video",
+                "audio",
+                "archive",
+                "utility",
+            ],
             required: true,
         },
+
+        // category: {
+        //     type: String,
+        //     required: true,
+        //     enum: ["document", "image", "video", "audio"]
+        // },
 
         description: {
             type: String,
@@ -61,14 +68,14 @@ const toolSchema = new mongoose.Schema(
 
         engine: {
             type: String,
-            // enum: [
-            //     "sharp",
-            //     "libreoffice",
-            //     "ffmpeg",
-            //     "imagemagick",
-            //     "ocr",
-            //     "custom",
-            // ],
+            enum: [
+                "sharp",
+                "libreoffice",
+                "ffmpeg",
+                "imagemagick",
+                "ocr",
+                "custom",
+            ],
             required: true,
         },
 

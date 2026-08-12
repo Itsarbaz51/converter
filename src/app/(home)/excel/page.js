@@ -79,9 +79,6 @@ export default function ExcelPage() {
 
   };
 
-
-
-
   const handleRemoveFile = (index) => {
     setFiles(files.filter((_, i) => i !== index));
   };
